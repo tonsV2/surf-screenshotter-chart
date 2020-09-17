@@ -1,0 +1,39 @@
+environments:
+  dev:
+    values:
+      - kubeContext: nuc
+      - installed:
+          surfScreenshot: true
+      - version:
+          surfScreenshot: 0.1.0
+  test:
+    values:
+      - kubeContext: nuc
+      - installed:
+          surfScreenshot: true
+      - version:
+          surfScreenshot: 0.1.0
+  prod:
+    values:
+      - kubeContext: nuc
+      - installed:
+          surfScreenshot: true
+      - version:
+          surfScreenshot: 0.1.0
+
+releases:
+  - name: surf-screenshot
+    namespace: surf-screenshot-{{ .Environment.Name }}
+#    chart: tons/surf-screenshot
+    chart: .
+    version: {{ .Values.version.surfScreenshot }}
+    installed: {{ .Values.installed.surfScreenshot }}
+    kubeContext: {{ .Values.kubeContext }}
+#    values:
+#      - environments/{{ .Environment.Name }}/surf-screenshot-values.yaml
+
+repositories:
+  - name: tons
+    url: https://helm-charts.fitfit.dk
+    username: {{ requiredEnv "CHARTMUSEUM_AUTH_USER" }}
+    password: {{ requiredEnv "CHARTMUSEUM_AUTH_PASS" }}
