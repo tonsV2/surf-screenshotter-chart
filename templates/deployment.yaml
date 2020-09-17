@@ -1,16 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "surf-screenshot-chart.fullname" . }}
+  name: {{ include "surf-screenshot.fullname" . }}
   labels:
-    {{- include "surf-screenshot-chart.labels" . | nindent 4 }}
+    {{- include "surf-screenshot.labels" . | nindent 4 }}
 spec:
 {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
 {{- end }}
   selector:
     matchLabels:
-      {{- include "surf-screenshot-chart.selectorLabels" . | nindent 6 }}
+      {{- include "surf-screenshot.selectorLabels" . | nindent 6 }}
   template:
     metadata:
     {{- with .Values.podAnnotations }}
@@ -18,13 +18,13 @@ spec:
         {{- toYaml . | nindent 8 }}
     {{- end }}
       labels:
-        {{- include "surf-screenshot-chart.selectorLabels" . | nindent 8 }}
+        {{- include "surf-screenshot.selectorLabels" . | nindent 8 }}
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: {{ include "surf-screenshot-chart.serviceAccountName" . }}
+      serviceAccountName: {{ include "surf-screenshot.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
@@ -53,7 +53,7 @@ spec:
       volumes:
         - name: data
           persistentVolumeClaim:
-            claimName: {{ include "surf-screenshot-chart.fullname" . }}
+            claimName: {{ include "surf-screenshot.fullname" . }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
