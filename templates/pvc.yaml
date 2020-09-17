@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: {{ include "surf-screenshot.fullname" . }}
+  name: {{ include "surf-screenshotter.fullname" . }}
   labels:
-  {{- include "surf-screenshot.labels" . | nindent 4 }}
+  {{- include "surf-screenshotter.labels" . | nindent 4 }}
 spec:
   accessModes:
     - ReadWriteOnce

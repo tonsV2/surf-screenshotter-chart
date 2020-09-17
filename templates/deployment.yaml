@@ -1,16 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "surf-screenshot.fullname" . }}
+  name: {{ include "surf-screenshotter.fullname" . }}
   labels:
-    {{- include "surf-screenshot.labels" . | nindent 4 }}
+    {{- include "surf-screenshotter.labels" . | nindent 4 }}
 spec:
 {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
 {{- end }}
   selector:
     matchLabels:
-      {{- include "surf-screenshot.selectorLabels" . | nindent 6 }}
+      {{- include "surf-screenshotter.selectorLabels" . | nindent 6 }}
   template:
     metadata:
     {{- with .Values.podAnnotations }}
@@ -18,13 +18,13 @@ spec:
         {{- toYaml . | nindent 8 }}
     {{- end }}
       labels:
-        {{- include "surf-screenshot.selectorLabels" . | nindent 8 }}
+        {{- include "surf-screenshotter.selectorLabels" . | nindent 8 }}
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: {{ include "surf-screenshot.serviceAccountName" . }}
+      serviceAccountName: {{ include "surf-screenshotter.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
@@ -64,7 +64,7 @@ spec:
       volumes:
         - name: data
           persistentVolumeClaim:
-            claimName: {{ include "surf-screenshot.fullname" . }}
+            claimName: {{ include "surf-screenshotter.fullname" . }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

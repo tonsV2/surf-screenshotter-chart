@@ -22,15 +22,15 @@ environments:
           surfScreenshot: 0.1.0
 
 releases:
-  - name: surf-screenshot
-    namespace: surf-screenshot-{{ .Environment.Name }}
-#    chart: tons/surf-screenshot
+  - name: surf-screenshotter
+    namespace: surf-screenshotter-{{ .Environment.Name }}
+#    chart: tons/surf-screenshotter
     chart: .
     version: {{ .Values.version.surfScreenshot }}
     installed: {{ .Values.installed.surfScreenshot }}
     kubeContext: {{ .Values.kubeContext }}
 #    values:
-#      - environments/{{ .Environment.Name }}/surf-screenshot-values.yaml
+#      - environments/{{ .Environment.Name }}/surf-screenshotter-values.yaml
 
 repositories:
   - name: tons
