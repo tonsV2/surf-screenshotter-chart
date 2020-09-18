@@ -3,14 +3,14 @@ environments:
     values:
       - kubeContext: nuc
       - installed:
-          surfScreenshot: true
+          surfScreenshot: false
       - version:
           surfScreenshot: 0.1.0
   test:
     values:
       - kubeContext: nuc
       - installed:
-          surfScreenshot: true
+          surfScreenshot: false
       - version:
           surfScreenshot: 0.1.0
   prod:
@@ -19,13 +19,12 @@ environments:
       - installed:
           surfScreenshot: true
       - version:
-          surfScreenshot: 0.1.0
+          surfScreenshot: 0.2.0
 
 releases:
   - name: surf-screenshotter
     namespace: surf-screenshotter-{{ .Environment.Name }}
-#    chart: tons/surf-screenshotter
-    chart: .
+    chart: tons/surf-screenshotter
     version: {{ .Values.version.surfScreenshot }}
     installed: {{ .Values.installed.surfScreenshot }}
     kubeContext: {{ .Values.kubeContext }}
