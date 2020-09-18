@@ -9,6 +9,9 @@ workerData: |
 
 nginxDefaultConf: includes/etc/nginx/conf.d/default.conf
 
+volume:
+  size: 100M
+
 replicaCount: 1
 
 wwwImage:
