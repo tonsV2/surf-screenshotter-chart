@@ -19,7 +19,7 @@ environments:
       - installed:
           surfScreenshot: true
       - version:
-          surfScreenshot: 0.2.0
+          surfScreenshot: 0.3.0
 
 releases:
   - name: surf-screenshotter
