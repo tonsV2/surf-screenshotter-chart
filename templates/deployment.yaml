@@ -56,15 +56,24 @@ spec:
            capabilities:
              add:
                - SYS_ADMIN
-          image: "tons/surf-screenshotter-worker:0.2"
+          image: "tons/surf-screenshotter-worker:0.5"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           volumeMounts:
             - name: data
               mountPath: /data
+            - name: data-txt
+              mountPath: /mnt/data
+              readOnly: true
       volumes:
         - name: data
           persistentVolumeClaim:
             claimName: {{ include "surf-screenshotter.fullname" . }}
+        - name: data-txt
+          configMap:
+            name: {{ include "surf-screenshotter.fullname" . }}
+            items:
+              - key: data.txt
+                path: data_file.txt
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
