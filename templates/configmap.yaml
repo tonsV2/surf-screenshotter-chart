@@ -7,3 +7,5 @@ metadata:
 data:
   data.txt: |
     {{- .Values.workerData | nindent 4 }}
+  nginx-default.conf: |
+    {{ .Files.Get .Values.nginxDefaultConf | nindent 4 }}

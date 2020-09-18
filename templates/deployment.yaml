@@ -37,6 +37,9 @@ spec:
             - name: data
               mountPath: /usr/share/nginx/html
               readOnly: true
+            - name: configmap-nginx
+              mountPath: /etc/nginx/conf.d
+              readOnly: true
           ports:
             - name: http
               containerPort: 8080
@@ -61,19 +64,25 @@ spec:
           volumeMounts:
             - name: data
               mountPath: /data
-            - name: data-txt
+            - name: configmap-data
               mountPath: /mnt/data
               readOnly: true
       volumes:
         - name: data
           persistentVolumeClaim:
             claimName: {{ include "surf-screenshotter.fullname" . }}
-        - name: data-txt
+        - name: configmap-data
           configMap:
             name: {{ include "surf-screenshotter.fullname" . }}
             items:
               - key: data.txt
                 path: data_file.txt
+        - name: configmap-nginx
+          configMap:
+            name: {{ include "surf-screenshotter.fullname" . }}
+            items:
+              - key: nginx-default.conf
+                path: default.conf
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
