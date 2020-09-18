@@ -11,11 +11,13 @@ nginxDefaultConf: includes/etc/nginx/conf.d/default.conf
 
 replicaCount: 1
 
-image:
-  repository: nginxinc/nginx-unprivileged
+wwwImage:
+  name: nginxinc/nginx-unprivileged:1.18
   pullPolicy: IfNotPresent
-  # Overrides the image tag whose default is the chart appVersion.
-  tag: 1.18
+
+workerImage:
+  name: tons/surf-screenshotter-worker:0.5
+  pullPolicy: IfNotPresent
 
 imagePullSecrets: []
 nameOverride: ""

@@ -31,8 +31,8 @@ spec:
         - name: {{ .Chart.Name }}-www
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          image: {{ .Values.wwwImage.name | quote }}
+          imagePullPolicy: {{ .Values.wwwImage.pullPolicy }}
           volumeMounts:
             - name: data
               mountPath: /usr/share/nginx/html
@@ -59,8 +59,8 @@ spec:
            capabilities:
              add:
                - SYS_ADMIN
-          image: "tons/surf-screenshotter-worker:0.5"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          image: {{ .Values.workerImage.name | quote }}
+          imagePullPolicy: {{ .Values.workerImage.pullPolicy }}
           volumeMounts:
             - name: data
               mountPath: /data
