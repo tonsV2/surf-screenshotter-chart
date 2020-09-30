@@ -21,11 +21,11 @@ spec:
               args:
                 - ./screenshotter.sh
               volumeMounts:
-              - name: data
-                mountPath: /data
-              - name: configmap-data
-                mountPath: /mnt/data
-                readOnly: true
+                - name: data
+                  mountPath: /data
+                - name: configmap-data
+                  mountPath: /mnt/data
+                  readOnly: true
           restartPolicy: Never
           volumes:
             - name: data
