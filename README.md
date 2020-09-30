@@ -18,9 +18,7 @@ git ci -m 'Bump version'
 git tag RELEASE-$CHART_VERSION
 ```
 
-# Deploy
-Update version, for the given environment, in `helmfile.yaml`
-
+# Development
 ```bash
-helmfile -e prod sync
+skaffold dev
 ```

@@ -1,0 +1,9 @@
+apiVersion: skaffold/v2beta6
+kind: Config
+deploy:
+  kubeContext: default
+  helm:
+    releases:
+      - name: surf-screenshotter
+        namespace: surf-screenshotter
+        chartPath: .
