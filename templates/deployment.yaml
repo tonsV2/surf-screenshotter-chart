@@ -54,29 +54,10 @@ spec:
               port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
-        - name: {{ .Chart.Name }}-worker
-          securityContext:
-           capabilities:
-             add:
-               - SYS_ADMIN
-          image: {{ .Values.workerImage.name | quote }}
-          imagePullPolicy: {{ .Values.workerImage.pullPolicy }}
-          volumeMounts:
-            - name: data
-              mountPath: /data
-            - name: configmap-data
-              mountPath: /mnt/data
-              readOnly: true
       volumes:
         - name: data
           persistentVolumeClaim:
             claimName: {{ include "surf-screenshotter.fullname" . }}
-        - name: configmap-data
-          configMap:
-            name: {{ include "surf-screenshotter.fullname" . }}
-            items:
-              - key: data.txt
-                path: data_file.txt
         - name: configmap-nginx
           configMap:
             name: {{ include "surf-screenshotter.fullname" . }}

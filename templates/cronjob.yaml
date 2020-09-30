@@ -1,0 +1,39 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: {{ include "surf-screenshotter.fullname" . }}
+  labels:
+  {{- include "surf-screenshotter.labels" . | nindent 4 }}
+spec:
+  schedule: {{ .Values.schedule | quote }}
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: {{ .Chart.Name }}-worker
+              image: {{ .Values.workerImage.name | quote }}
+              imagePullPolicy: {{ .Values.workerImage.pullPolicy }}
+              securityContext:
+                capabilities:
+                  add:
+                    - SYS_ADMIN
+              args:
+                - ./screenshotter.sh
+              volumeMounts:
+              - name: data
+                mountPath: /data
+              - name: configmap-data
+                mountPath: /mnt/data
+                readOnly: true
+          restartPolicy: Never
+          volumes:
+            - name: data
+              persistentVolumeClaim:
+                claimName: {{ include "surf-screenshotter.fullname" . }}
+            - name: configmap-data
+              configMap:
+                name: {{ include "surf-screenshotter.fullname" . }}
+                items:
+                  - key: data.txt
+                    path: data_file.txt
