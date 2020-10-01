@@ -6,6 +6,8 @@ metadata:
   {{- include "surf-screenshotter.labels" . | nindent 4 }}
 spec:
   schedule: {{ .Values.schedule | quote }}
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
   jobTemplate:
     spec:
       template:
@@ -34,4 +36,5 @@ spec:
                 name: {{ include "surf-screenshotter.fullname" . }}
                 items:
                   - key: data.txt
-                    path: data_file.txt
+                    path: data.txt
+      backoffLimit: 2
