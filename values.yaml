@@ -21,7 +21,7 @@ wwwImage:
   pullPolicy: IfNotPresent
 
 workerImage:
-  name: tons/surf-screenshotter-worker:0.6
+  name: tons/surf-screenshotter-worker:0.7
   pullPolicy: IfNotPresent
 
 imagePullSecrets: []
