@@ -5,9 +5,9 @@ metadata:
   labels:
   {{- include "surf-screenshotter.labels" . | nindent 4 }}
 spec:
-  schedule: {{ .Values.schedule | quote }}
-  successfulJobsHistoryLimit: 1
-  failedJobsHistoryLimit: 1
+  schedule: {{ .Values.workerSchedule | quote }}
+  successfulJobsHistoryLimit: {{ .Values.workerSuccessfulJobsHistoryLimit }}
+  failedJobsHistoryLimit: {{ .Values.workerFailedJobsHistoryLimit }}
   jobTemplate:
     spec:
       template:
@@ -37,4 +37,4 @@ spec:
                 items:
                   - key: data.txt
                     path: data.txt
-      backoffLimit: 2
+      backoffLimit: {{ .Values.workerBackoffLimit }}
