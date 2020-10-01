@@ -18,6 +18,7 @@ Commit and tag commit: RELEASE-$CHART_VERSION
 ```bash
 git ci -m 'Bump version'
 git tag RELEASE-$CHART_VERSION
+git push
 git push --tags
 ```
 
