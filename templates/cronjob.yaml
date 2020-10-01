@@ -18,8 +18,6 @@ spec:
                 capabilities:
                   add:
                     - SYS_ADMIN
-              args:
-                - ./screenshotter.sh
               volumeMounts:
                 - name: data
                   mountPath: /data
