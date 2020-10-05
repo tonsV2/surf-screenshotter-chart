@@ -1,0 +1,22 @@
+buildscript {
+    repositories {
+        maven { url 'https://dl.bintray.com/tons/tons' }
+    }
+    dependencies {
+        classpath 'dk.fitfit.helm.release:helm-release:1.0.0'
+    }
+}
+
+apply plugin: 'helm-release'
+
+helmRelease {
+    signature {
+        key = "helm"
+    }
+
+    repository {
+        url = "https://helm-charts.fitfit.dk/api/charts"
+        username = System.getenv('REPOSITORY_AUTH_USER')
+        password = System.getenv('REPOSITORY_AUTH_PASS')
+    }
+}
